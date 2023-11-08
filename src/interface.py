@@ -1,9 +1,8 @@
 import serial
 import depthai as dai
 import queue
-import threading
 
-teraranger_data = queue.Queue(maxsize=1)
+teraranger_data = queue.Queue(maxsize=0)
 telemetry_received_data = queue.Queue(maxsize=0)
 telemetry_send_data = queue.Queue(maxsize=0)
 depth_data = queue.Queue(maxsize=1)
@@ -30,11 +29,27 @@ def teraranger_setup(serial_port):
     tera.write(activate_stream_command)
 
     while(True):
-        #teraranger_data.put
-        pass
+        try:
+            raw_data = tera.readline().decode()[:-2]
+        except:
+            print("error: could not read or decode teraranger data")
+            continue
+        try:
+            data = raw_data.split('\t')
+            front = data[1]
+            left = data[7]
+            right = data[3]
+            data_formatted = [left, front, right]
+            teraranger_data.put(data_formatted)
+        except:
+            print("error: could not parse teraranger data")
+            continue
+
 
 def telemetry_setup(serial_port):
     '''configure the Microhard P900 radio'''
+    pass
+
     global telemetry_received_data, telemetry_send_data
     
     global rad
@@ -48,6 +63,8 @@ def telemetry_setup(serial_port):
 
 def depth_sensing_setup():
     ''' configure the OakD depth-sensing camera'''
+    pass
+
     global oakd
     
     # Connect to device and setup pipeline

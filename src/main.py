@@ -12,8 +12,19 @@ def fsm():
     global state
 
     if state == FSMState.INITIALIZE:
-        print("Hi")
-        time.sleep(1)
+        time.sleep(0.2)
+        state = FSMState.FLIGHT_LOOP
+
+    if state == FSMState.FLIGHT_LOOP:
+        
+        if interface.teraranger_data.empty():
+            print("no teraranger data, continuing")
+        else:
+            while interface.teraranger_data.empty() != True:
+                data = interface.teraranger_data.get()
+            print("teraranger:",data)
+        
+        state = FSMState.INITIALIZE
     
 
 def setup():
@@ -26,8 +37,8 @@ def setup():
 
     # start collecting data
     x1.start()
-    x2.start()
-    x3.start()
+    #x2.start()
+    #x3.start()
 
     #put FSM in initial state
     state = FSMState.INITIALIZE

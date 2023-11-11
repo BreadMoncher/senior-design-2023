@@ -10,14 +10,13 @@ def send_string_to_serial(string, serial_port):
     except Exception as e:
         print(f'Error: {e}')
 
-# Define the string you want to send
-string_to_send = "Hewwo! こんにちは あんたばか？？"
-
 # Define the serial port (may vary depending on your system)
-serial_port = '/dev/ttyUSB0'
+serial_port = '/dev/cu.usbserial-D30EZ678'
 
 # Send the string
 while(True):
-    send_string_to_serial(string_to_send, serial_port)
-    time.sleep(1.2)
+    string_to_send = input("Type Command:")
+    string_to_send += '\n'
+    for _ in range(1):
+        send_string_to_serial(string_to_send, serial_port)
 

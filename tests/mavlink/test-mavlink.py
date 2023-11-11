@@ -35,7 +35,7 @@ from pymavlink import mavutil
 import time
 
 # Connect to the Pixhawk
-master = mavutil.mavlink_connection('/dev/ttyACM1', baud=57600)
+master = mavutil.mavlink_connection('/dev/ttyACM0', baud=57600)
 
 try:
     while True:

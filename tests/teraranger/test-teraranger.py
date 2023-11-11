@@ -38,5 +38,5 @@ def read_from_serial(serial_port):
         if ser.is_open:
             ser.close()
 
-serial_port = "/dev/ttyACM0"
+serial_port = "/dev/ttyACM1"
 read_from_serial(serial_port)

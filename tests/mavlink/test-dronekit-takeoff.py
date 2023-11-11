@@ -2,7 +2,7 @@ from dronekit import connect, VehicleMode
 from pymavlink import mavutil
 import time
 
-vehicle = connect('/dev/serial0', baud=57600, wait_ready=True)
+vehicle = connect('/dev/ttyACM0', baud=57600, wait_ready=True)
 
 # Set the mode to GUIDED (required for takeoff)
 vehicle.mode = VehicleMode("GUIDED")
@@ -23,7 +23,7 @@ print("Vehicle armed!")
 print('taking off...')
 vehicle.simple_takeoff(1)
 
-time.sleep(20)
+time.sleep(1)
 
 vehicle.mode = VehicleMode("LAND")
 

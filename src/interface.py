@@ -53,7 +53,7 @@ def telemetry_setup(serial_port):
     global telemetry_received_data, telemetry_send_data
     
     global rad
-    rad = serial.Serial(serial_port, baudrate=57600, timeout=0.01)
+    rad = serial.Serial(serial_port, baudrate=57600)
 
     # manage the sending and receiving of byte data
     while(True):

@@ -7,8 +7,9 @@ class FSMState(Enum):
     INITIALIZE = 1
     TAKEOFF = 2
     FLIGHT_LOOP = 4
-    END_FLIGHT = 5
-    EXIT = 6
+    LAND = 5
+    END_FLIGHT = 6
+    EXIT = 7
 
 system_state = {
     "altitude": 0,
@@ -19,7 +20,7 @@ system_state = {
 }
 
 def refresh_data():
-# get teraranger data
+    # get teraranger data
     if (not interface.teraranger_data.empty()):
         while interface.teraranger_data.empty() != True:
             data = interface.teraranger_data.get()
@@ -31,8 +32,8 @@ def refresh_data():
         print("teraranger:",data)
         
     else:
-        print("no teraranger data, continuing")
-    
+        #print("no teraranger data, continuing")
+        pass 
 
 def run_command():
     global state
@@ -40,21 +41,22 @@ def run_command():
     # Get commands from the ground telemetry
     while (not interface.telemetry_received_data.empty()):
         next_command = interface.telemetry_received_data.get()
-
-        if (next_command == "takeoff"):
+        #print(next_command)
+        if (next_command == b"TAKEOFF"):
             if (state == FSMState.INITIALIZE):
                 # Takeoff
                 return FSMState.TAKEOFF
             
-        elif (next_command == "land"):
+        elif (next_command == b"LAND"):
             if (state == FSMState.FLIGHT_LOOP):
-                return FSMState.LAND
+                return FSMState.END_FLIGHT
             pass
 
 def fsm():
     global state, system_state
 
     if state == FSMState.INITIALIZE:
+        print("in initial state...")
         time.sleep(0.2)
 
         # wait for takeoff command
@@ -68,7 +70,7 @@ def fsm():
         state = FSMState.FLIGHT_LOOP
 
     if state == FSMState.FLIGHT_LOOP:
-
+        time.sleep(0.5)
         # get more system data
         refresh_data()
 
@@ -102,7 +104,7 @@ def setup():
 
     # start collecting data
     x1.start()
-    #x2.start()
+    x2.start()
     #x3.start()
 
     #put FSM in initial state

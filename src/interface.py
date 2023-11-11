@@ -58,7 +58,7 @@ def telemetry_setup(serial_port):
     # manage the sending and receiving of byte data
     while(True):
         telemetry_received_data.put(rad.readline())
-        rad.write(telemetry_send_data.get_nowait().encode('utf-8'))
+        #rad.write(telemetry_send_data.get_nowait().encode('utf-8'))
 
 
 def depth_sensing_setup():

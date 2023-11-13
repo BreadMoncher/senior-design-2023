@@ -36,10 +36,11 @@ def teraranger_setup(serial_port):
             continue
         try:
             data = raw_data.split('\t')
-            front = data[1]
-            left = data[7]
-            right = data[3]
-            data_formatted = [left, front, right]
+            #front = data[1]
+            #left = data[7]
+            #right = data[3]
+            #data_formatted = [left, front, right]
+            data_formatted = data[1:9]
             teraranger_data.put(data_formatted)
         except:
             print("error: could not parse teraranger data")

@@ -1,4 +1,5 @@
 import serial
+import time
 
 def read_from_serial(serial_port):
 
@@ -25,7 +26,10 @@ def read_from_serial(serial_port):
         while True:
             a = ser.readline()
             try:
-                print(a.decode())
+                line = a.decode()
+                data = line.split('\t')
+                print(data)
+                print()
             except:
                 print("fail")
                 pass

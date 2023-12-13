@@ -41,7 +41,8 @@ def teraranger_setup(serial_port):
             #right = data[3]
             #data_formatted = [left, front, right]
             data_formatted = data[1:9]
-            teraranger_data.put(data_formatted)
+            float_data_formatted = [float(item) for item in data_formatted]
+            teraranger_data.put(float_data_formatted)
         except:
             print("error: could not parse teraranger data")
             continue

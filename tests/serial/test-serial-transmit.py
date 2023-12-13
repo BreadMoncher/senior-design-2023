@@ -11,7 +11,8 @@ def send_string_to_serial(string, serial_port):
         print(f'Error: {e}')
 
 # Define the serial port (may vary depending on your system)
-serial_port = '/dev/cu.usbserial-D30EZ678'
+# serial_port = '/dev/cu.usbserial-D30EZ678'
+serial_port = '/dev/ttyUSB0'
 
 # Send the string
 while(True):
